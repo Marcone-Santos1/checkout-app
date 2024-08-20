@@ -1,6 +1,6 @@
 <?php
 
-namespace MiniRest\Requests\Products;
+namespace MiniRest\Requests\Sales;
 
 use MiniRest\Contracts\IAction;
 use MiniRest\Contracts\IRepository;
@@ -8,7 +8,7 @@ use MiniRest\Contracts\IRequest;
 use MiniRest\Traits\RequestTrait;
 use MiniRestFramework\Http\Request\Request;
 
-class EditProductRequest extends Request implements IRequest
+class EditSaleRequest extends Request implements IRequest
 {
     use RequestTrait;
 

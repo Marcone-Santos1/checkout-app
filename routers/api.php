@@ -26,5 +26,3 @@ Route::prefix('/api/reports')->group([], function () {
     Route::get('/sales', [ReportsController::class, 'sales']);
     Route::get('/products', [ReportsController::class, 'products']);
 });
-
-

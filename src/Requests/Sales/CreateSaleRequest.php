@@ -1,12 +1,12 @@
 <?php
 
-namespace MiniRest\Requests\Products;
+namespace MiniRest\Requests\Sales;
 
 use MiniRest\Traits\RequestTrait;
 use MiniRest\Contracts\IRequest;
 use MiniRestFramework\Http\Request\Request;
 
-class CreateProductRequest extends Request implements IRequest
+class CreateSaleRequest extends Request implements IRequest
 {
     use RequestTrait;
 

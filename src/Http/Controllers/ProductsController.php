@@ -3,22 +3,44 @@
 namespace MiniRest\Http\Controllers;
 
 use MiniRest\Actions\Products\CreateProductsAction;
-use MiniRest\Contracts\ICrudController;
-use MiniRest\Contracts\IRequest;
+use MiniRest\Actions\Products\DeleteProductsAction;
+use MiniRest\Actions\Products\EditProductsAction;
+use MiniRest\Actions\Products\GetAllProductsAction;
+use MiniRest\Actions\Products\GetByIdProductsAction;
+use MiniRest\Repositories\ProductsRepository;
 use MiniRest\Requests\Products\CreateProductRequest;
+use MiniRest\Requests\Products\EditProductRequest;
 use MiniRestFramework\Http\Request\Request;
 use MiniRestFramework\Http\Response\Response;
 
 class ProductsController
 {
-    public function get(Request $request): Response
+
+    private ProductsRepository $productsRepository;
+
+    public function __construct(
+        ProductsRepository $productsRepository
+    )
     {
-        return Response::json([]);
+        $this->productsRepository = $productsRepository;
     }
 
-    public function getById(int $id, Request $request): Response
+    public function get(GetAllProductsAction $action): Response
     {
-        return Response::json([]);
+        return $action->handle(
+            request: null,
+            repository: $this->productsRepository,
+            id: null
+        );
+    }
+
+    public function getById(string $id, Request $request, GetByIdProductsAction $action): Response
+    {
+        return $action->handle(
+            request: null,
+            repository: $this->productsRepository,
+            id: $id
+        );
     }
 
     public function create(CreateProductRequest $request, CreateProductsAction $action): Response
@@ -27,20 +49,32 @@ class ProductsController
             return Response::json($request->errors());
         }
 
-        $action->handle(
-            request: $request
+        return $action->handle(
+            $request,
+            $this->productsRepository,
+            null
         );
-
-        return Response::json([]);
     }
 
-    public function update(int $id, Request $request): Response
+    public function update(string $id, EditProductRequest $request, EditProductsAction $action): Response
     {
-        return Response::json([]);
+        if ($request->fails()) {
+            return Response::json($request->errors());
+        }
+
+        return $action->handle(
+            request: $request,
+            repository: $this->productsRepository,
+            id: $id
+        );
     }
 
-    public function delete(int $id, Request $request): Response
+    public function delete(string $id, DeleteProductsAction $action): Response
     {
-        return Response::json([]);
+        return $action->handle(
+            request: null,
+            repository: $this->productsRepository,
+            id: $id
+        );
     }
 }

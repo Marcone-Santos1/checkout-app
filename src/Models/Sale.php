@@ -12,10 +12,13 @@ class Sale extends Model
 {
     use HasUuid, SoftDeletes;
 
-    protected $table = 'orders';
+    protected $table = 'sales';
 
     protected $fillable = [
-        'external_id'
+        'external_id',
+        'amount_paid',
+        'payment_id',
+        'unit_value'
     ];
 
     protected $hidden = [
@@ -30,6 +33,6 @@ class Sale extends Model
 
     public function paymentType(): hasOne
     {
-        return $this->hasOne(PaymentType::class);
+        return $this->hasOne(PaymentType::class)->withPivot('amount', 'unit_value');
     }
 }

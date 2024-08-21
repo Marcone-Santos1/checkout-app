@@ -19,7 +19,6 @@ Route::prefix('/api/sales')->group([], function () {
     Route::get('/', [SalesController::class, 'get']);
     Route::get('/{id}', [SalesController::class, 'getById']);
     Route::post('/create', [SalesController::class, 'create']);
-    Route::put('/{id}', [SalesController::class, 'update']);
     Route::delete('/{id}', [SalesController::class, 'delete']);
 });
 Route::prefix('/api/reports')->group([], function () {

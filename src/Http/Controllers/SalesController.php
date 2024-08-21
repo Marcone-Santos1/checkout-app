@@ -4,12 +4,10 @@ namespace MiniRest\Http\Controllers;
 
 use MiniRest\Actions\Sales\CreateSaleAction;
 use MiniRest\Actions\Sales\DeleteSaleAction;
-use MiniRest\Actions\Sales\EditSaleAction;
 use MiniRest\Actions\Sales\GetAllSalesAction;
 use MiniRest\Actions\Sales\GetSaleByIdAction;
 use MiniRest\Repositories\SalesRepository;
 use MiniRest\Requests\Sales\CreateSaleRequest;
-use MiniRest\Requests\Sales\EditSaleRequest;
 use MiniRestFramework\Http\Request\Request;
 use MiniRestFramework\Http\Response\Response;
 
@@ -53,19 +51,6 @@ class SalesController
             $request,
             $this->salesRepository,
             null
-        );
-    }
-
-    public function update(string $id, EditSaleRequest $request, EditSaleAction $action): Response
-    {
-        if ($request->fails()) {
-            return Response::json($request->errors());
-        }
-
-        return $action->handle(
-            request: $request,
-            repository: $this->salesRepository,
-            id: $id
         );
     }
 

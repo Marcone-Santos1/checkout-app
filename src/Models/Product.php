@@ -16,7 +16,8 @@ class Product extends Model
     protected $fillable = [
         'name',
         'price',
-        'external_id'
+        'external_id',
+        'unit_value'
     ];
 
     protected $hidden = [
@@ -26,6 +27,6 @@ class Product extends Model
 
     public function sales(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('amount');
     }
 }

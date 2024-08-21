@@ -5,6 +5,7 @@ namespace MiniRest\Actions\Sales;
 use MiniRest\Contracts\IAction;
 use MiniRest\Contracts\IRepository;
 use MiniRest\Contracts\IRequest;
+use MiniRest\Models\Product;
 use MiniRestFramework\Http\Response\Response;
 
 class CreateSaleAction implements IAction
@@ -13,11 +14,12 @@ class CreateSaleAction implements IAction
     public function handle(?IRequest $request, ?IRepository $repository, ?string $id): mixed
     {
         try {
-            $product = $repository->create($request);
+            $sale = $repository->create($request);
+            $repository->sync($sale, $this->productsArray($request->products));
             return Response::json([
                 'message' => 'success',
                 'data' => [
-                    'product' => $product
+                    'sale' => $sale
                 ]
             ]);
         } catch (\Exception $e) {
@@ -26,4 +28,17 @@ class CreateSaleAction implements IAction
 
     }
 
+    private function productsArray(array $products): array
+    {
+        return array_map(function ($product) {
+
+            $p = (new Product())->where('external_id', $product['product_id'])->first();
+
+            return [
+                'product_id' => $p->id,
+                'amount' => $product['amount'],
+                'unit_value' => $p->price
+            ];
+        }, $products);
+    }
 }

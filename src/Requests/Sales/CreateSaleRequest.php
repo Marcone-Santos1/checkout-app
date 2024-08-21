@@ -10,8 +10,9 @@ class CreateSaleRequest extends Request implements IRequest
 {
     use RequestTrait;
 
-    private string $name;
-    private float $value;
+    private string $payment_id;
+    private array $products;
+    private float $amount_paid;
 
     /**
      * Define as regras de validação para esta requisição.
@@ -21,8 +22,9 @@ class CreateSaleRequest extends Request implements IRequest
     protected function getValidationRules(): array
     {
         return [
-            'name' => 'required|string',
-            'value' => 'required'
+            'payment_id' => 'required|string',
+            'products' => 'required',
+            'amount_paid' => 'required'
         ];
     }
 
@@ -30,8 +32,9 @@ class CreateSaleRequest extends Request implements IRequest
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
-            'value' => $this->value
+            'payment_id' => $this->payment_id,
+            'products' => $this->products,
+            'ammount_paid' => $this->amount_paid
         ];
     }
 

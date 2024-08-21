@@ -13,7 +13,6 @@ trait RequestTrait
      */
     public function __construct()
     {
-
         $this->data = array_merge($this->getJsonData() ?? [], $this->getRouteParams() ?? []);
         $this->populateProperties();
         $this->isValid();

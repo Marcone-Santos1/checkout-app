@@ -17,7 +17,7 @@ class GetAllSalesAction implements IAction
             return Response::json([
                 'message' => 'success',
                 'data' => [
-                    'products' => $product
+                    'sales' => $product
                 ]
             ]);
         } catch (\Exception $e) {

@@ -3,7 +3,7 @@
 namespace MiniRest\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\hasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use MiniRest\Traits\HasUuid;
 
@@ -23,8 +23,8 @@ class PaymentType extends Model
         'deleted_at'
     ];
 
-    public function sales(): belongsTo
+    public function sales(): hasMany
     {
-        return $this->belongsTo(Sale::class);
+        return $this->hasMany(Sale::class);
     }
 }

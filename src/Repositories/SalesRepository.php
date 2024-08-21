@@ -26,7 +26,7 @@ class SalesRepository implements IRepository
 
     public function get(?IRequest $request)
     {
-        return $this->sale->get();
+        return $this->sale->with('products')->with('paymentType')->get();
     }
 
     public function getById(int|string $id)

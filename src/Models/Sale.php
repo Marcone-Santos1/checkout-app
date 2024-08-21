@@ -3,8 +3,8 @@
 namespace MiniRest\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use MiniRest\Traits\HasUuid;
 
@@ -28,11 +28,11 @@ class Sale extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('amount', 'unit_value');
     }
 
-    public function paymentType(): hasOne
+    public function paymentType(): BelongsTo
     {
-        return $this->hasOne(PaymentType::class)->withPivot('amount', 'unit_value');
+        return $this->belongsTo(PaymentType::class, 'payment_id');
     }
 }

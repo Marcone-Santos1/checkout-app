@@ -1,8 +1,7 @@
 <?php
 
 require_once 'vendor/autoload.php';
-require_once 'config/config.php';
-use MiniRestFramework\Core\App;
 
-$app = new App();
+$app = require_once __DIR__ . '/bootstrap/app.php';
+
 $app->run();
